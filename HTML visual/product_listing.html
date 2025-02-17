@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <style>
+        .product-group {
+            margin-bottom: 20px;
+        }
+        .product-group h2 {
+            margin-top: 0;
+        }
+        .product-items {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .product-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            flex: 1 1 calc(33.333% - 10px); /* Adjust the width as needed */
+            box-sizing: border-box;
+        }
+        .product-item h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Listing</h1>
+    {% for group_number in products|map(attribute='group')|unique %}
+        <div class="product-group">
+            <h2>Group {{ group_number }}</h2>
+            <div class="product-items">
+                {% for product in products %}
+                    {% if product['group'] == group_number %}
+                        <div class="product-item">
+                            <h3>{{ product['product_name'] }}</h3>
+                            <p>Product Type: {{ product['product_type_name'] }}</p>
+                            <p>Size: {{ product['size'] }}</p>
+                            <p>Material: {{ product['material'] }}</p>
+                            <p>Text: {{ product['text'] }}</p>
+                            <p>Valdes Text EN: {{ product['valdes_text_en'] }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>
